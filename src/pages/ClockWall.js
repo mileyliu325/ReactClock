@@ -9,7 +9,7 @@ class ClockWall extends React.Component{
         return (
           <div>
     
-          <Container> <MyClock city = "Sydney"></MyClock></Container>
+          <Container> <MyClock city = "New York"></MyClock></Container>
           {/* <Container> <MyClock timezone = "seoul"></MyClock></Container>
           <Container> <MyClock timezone = "london"></MyClock></Container>
           <Container> <MyClock timezone = "newyork"></MyClock></Container> */}

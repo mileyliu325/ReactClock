@@ -1,23 +1,37 @@
 import React from "react";
 import bootstrap from "../bootstrap.css";
 import styled from "styled-components";
+import moment from "moment";
+import timezone from 'moment-timezone';
 import { publicStyle } from "../assets/publicStyle";
 
 class Clock extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
-    this.state = { time: new Date() };
+    
+    var current = new Date();
+    
+
+
+    var newYork    = moment.tz(current, "America/New_York");
+    // var losAngeles = newYork.clone().tz("America/Los_Angeles");
+    // var london     = newYork.clone().tz("Europe/London");
+    this.state = { time: newYork };
   }
 
   componentDidMount() {
     this.updateTime();
+
+   
   }
   componentWillUnmount() {
     clearInterval(this.timeId);
   }
   updateTime() {
     this.timeId = setInterval(() => {
-      this.setState({ time: new Date() });
+      var current = new Date();
+      var newYork    = moment.tz(current, "America/New_York");
+      this.setState({ time: moment.tz(newYork, "America/New_York") });
     }, 1000);
   }
 
@@ -28,14 +42,14 @@ class Clock extends React.Component {
           {this.props.city}
         </CityContainer>
         <DateContainer class="text-center align-self-center">
-          {this.state.time.toDateString()}
+          {this.state.time.format("MMM Do")}
         </DateContainer>
         <TimeContainer className="flex-container">
-          <TimeNumContainer>{this.state.time.getHours()}</TimeNumContainer>
+          <TimeNumContainer>{this.state.time.format("HH")}</TimeNumContainer>
           <div class="align-self-center"><strong>:</strong></div>
-          <TimeNumContainer>{this.state.time.getMinutes()}</TimeNumContainer>
+          <TimeNumContainer>{this.state.time.format("mm")}</TimeNumContainer>
           <div class="align-self-center"><strong>:</strong></div>
-          <TimeNumContainer>{this.state.time.getSeconds()}</TimeNumContainer>
+          <TimeNumContainer>{this.state.time.format("ss")}</TimeNumContainer>
         </TimeContainer>
       </ClockContainer>
     );
