@@ -6,6 +6,7 @@ import bootstrap from "../bootstrap.css";
 class ClockList extends React.Component {
   render() {
     const clocklist = this.props.citylist.map(city_name => (
+      <div class="col-sm-6 col-md-6 col-lg-6 text-center align-self-center">
       <Container>
         {
           <MyClock
@@ -14,8 +15,9 @@ class ClockList extends React.Component {
           />
         }
       </Container>
+      </div>
     ));
-    return <div>{clocklist}</div>;
+    return <div class = "row">{clocklist}</div>;
   }
 }
 
