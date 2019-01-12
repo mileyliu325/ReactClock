@@ -6,32 +6,28 @@ import timezone from 'moment-timezone';
 import { publicStyle } from "../assets/publicStyle";
 
 class Clock extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
-    
     var current = new Date();
-    
-
-
-    var newYork    = moment.tz(current, "America/New_York");
-    // var losAngeles = newYork.clone().tz("America/Los_Angeles");
-    // var london     = newYork.clone().tz("Europe/London");
-    this.state = { time: newYork };
+    var citytime  = moment.tz(current, "Australia/Sydney");
+    this.state = { time: citytime };
   }
 
   componentDidMount() {
-    this.updateTime();
 
-   
+    this.updateTime();
+  
   }
   componentWillUnmount() {
     clearInterval(this.timeId);
   }
   updateTime() {
+    console.log(this.props.city);
+      
     this.timeId = setInterval(() => {
       var current = new Date();
-      var newYork    = moment.tz(current, "America/New_York");
-      this.setState({ time: moment.tz(newYork, "America/New_York") });
+      var citytime = moment.tz(current, this.props.city_full);
+      this.setState({ time: citytime });
     }, 1000);
   }
 
@@ -40,9 +36,11 @@ class Clock extends React.Component {
       <ClockContainer>
         <CityContainer class="text-center align-self-center">
           {this.props.city}
+
         </CityContainer>
         <DateContainer class="text-center align-self-center">
-          {this.state.time.format("MMM Do")}
+          {this.state.time.format("ddd MMM D YYYY")}
+          
         </DateContainer>
         <TimeContainer className="flex-container">
           <TimeNumContainer>{this.state.time.format("HH")}</TimeNumContainer>
@@ -57,7 +55,6 @@ class Clock extends React.Component {
 }
 
 export default Clock;
-
 
 const ClockContainer = styled.div`
   background-color: rgba(232, 144, 109, 0.5);
