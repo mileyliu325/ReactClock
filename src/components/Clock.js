@@ -2,28 +2,25 @@ import React from "react";
 import bootstrap from "../bootstrap.css";
 import styled from "styled-components";
 import moment from "moment";
-import timezone from 'moment-timezone';
+import timezone from "moment-timezone";
 import { publicStyle } from "../assets/publicStyle";
-
 class Clock extends React.Component {
   constructor() {
     super();
     var current = new Date();
-    var citytime  = moment.tz(current, "Australia/Sydney");
+    var citytime = moment.tz(current, "Australia/Sydney");
     this.state = { time: citytime };
   }
 
   componentDidMount() {
-
     this.updateTime();
-  
   }
   componentWillUnmount() {
     clearInterval(this.timeId);
   }
   updateTime() {
     console.log(this.props.city);
-      
+
     this.timeId = setInterval(() => {
       var current = new Date();
       var citytime = moment.tz(current, this.props.city_full);
@@ -36,17 +33,21 @@ class Clock extends React.Component {
       <ClockContainer>
         <CityContainer class="text-center align-self-center">
           {this.props.city}
-
         </CityContainer>
+
         <DateContainer class="text-center align-self-center">
           {this.state.time.format("ddd MMM D YYYY")}
-          
         </DateContainer>
+
         <TimeContainer className="flex-container">
           <TimeNumContainer>{this.state.time.format("HH")}</TimeNumContainer>
-          <div class="align-self-center"><strong>:</strong></div>
+          <div class="align-self-center">
+            <strong>:</strong>
+          </div>
           <TimeNumContainer>{this.state.time.format("mm")}</TimeNumContainer>
-          <div class="align-self-center"><strong>:</strong></div>
+          <div class="align-self-center">
+            <strong>:</strong>
+          </div>
           <TimeNumContainer>{this.state.time.format("ss")}</TimeNumContainer>
         </TimeContainer>
       </ClockContainer>
@@ -87,7 +88,6 @@ const TimeContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   text-align: center;
-  
 `;
 
 const TimeNumContainer = styled.div`
